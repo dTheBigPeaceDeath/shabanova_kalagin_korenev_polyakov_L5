@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "shabanova_kalagin_korenev_polyakov_L5/1.0.0": {
+        "runtime": {
+          "shabanova_kalagin_korenev_polyakov_L5.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "shabanova_kalagin_korenev_polyakov_L5/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
