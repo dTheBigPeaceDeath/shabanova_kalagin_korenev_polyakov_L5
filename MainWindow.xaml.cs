@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Graphics;
 
 namespace shabanova_kalagin_korenev_polyakov_L5
 {
@@ -21,37 +22,74 @@ namespace shabanova_kalagin_korenev_polyakov_L5
     /// </summary>
     public partial class MainWindow : Window
     {
-        Exercise current_ex;
+        List<UIElement> variable_enabled;
+        List<Module> modules;
         public MainWindow()
         {
             InitializeComponent();
 
-            lbx_exercises.DisplayMemberPath = "Name";
-            lbx_exercises.ItemsSource = new List<Exercise>()
+            variable_enabled = new List<UIElement>()
             {
-                new Exercise1(grd_ex1, new CPFrequencyPolygon(cvs_polygon, "Xi", "Ni"), new CPEmpiricalFunction(cvs_empirical, "Xi", "F*(x)"))
+                btn_calculate,
+                chb_sf_row,
+                chb_sf_polygon,
+                chb_srf_row,
+                chb_srf_polygon
             };
 
-            foreach(Exercise ex in lbx_exercises.Items)
+            modules = new List<Module>()
             {
-                ex.Load();
+                new ModuleSFR(spl_modules, chb_sf_row),
+                new ModuleSFP(spl_modules, chb_sf_polygon),
+                new ModuleSRFR(spl_modules, chb_srf_row),
+                new ModuleSRFP(spl_modules, chb_srf_polygon),
+                new ModuleEDF(spl_modules, chb_edf)
+            };
+
+            tbx_path.TextChanged += tbx_path_TextChanged;
+        }
+
+        private void btn_find_Click(object _sender, RoutedEventArgs _e)
+        {
+            OpenFileDialog row_dialog = new OpenFileDialog
+            {
+                CheckFileExists = false,
+                CheckPathExists = true,
+                Multiselect = false,
+                Title = "Выберите файл",
+                Filter = "Вариационный ряд (*.row)|*.row"
+            };
+
+            if (row_dialog.ShowDialog() == true)
+            {
+                tbx_path.Text = row_dialog.FileName;
             }
         }
-        private void lbx_exercises_SelectionChanged(object _sender, SelectionChangedEventArgs _e)
-        {
-            ListBox lbx_this = _sender as ListBox;
 
-            if (current_ex != null)
+        private void tbx_path_TextChanged(object _sender, TextChangedEventArgs _e)
+        {
+            bool is_exist = false;
+
+            if(tbx_path.Text != "")
             {
-                current_ex.IsActive = false;
+                is_exist = new FileInfo(tbx_path.Text).Exists;
             }
 
-            current_ex = lbx_this.SelectedItem as Exercise;
-
-            if (current_ex != null)
+            foreach (UIElement uie in variable_enabled)
             {
-                current_ex.IsActive = true;
-                current_ex.Show();
+                uie.IsEnabled = is_exist;
+            }
+        }
+
+        private void btn_calculate_Click(object _sender, RoutedEventArgs _e)
+        {
+            Row.LoadRow(tbx_path.Text);
+
+            spl_modules.Children.Clear();
+
+            foreach(Module module in modules)
+            {
+                module.Run();
             }
         }
     }

@@ -1,129 +1,187 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.DirectoryServices.ActiveDirectory;
-using System.Linq;
+using System.Drawing;
+using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Graphics
+namespace shabanova_kalagin_korenev_polyakov_L5.Graphics
 {
     enum Position
     {
-        Vertical,
-        Horizontal
+        Horizontal,
+        Vertical
     }
-
     class CoordinatePlane
     {
-        public Canvas canvas;
+        protected Canvas canvas;
+        protected List<Point> points;
         protected Axis axis_x;
         protected Axis axis_y;
-        protected List<Point> points;
-        public Point NullPoint { get; private set; }
+        public Vector2 NullPoint { get; private set; }
 
-        // Variables
-        public int first_multiplier_x;
-        public int first_multiplier_y;
-        public double label_size;
-        public double point_size;
-        public Brush point_color;
-        public Brush label_color;
+        // Var
         public Brush axis_color;
+        public Brush point_color;
         public Brush text_color;
+        public Brush label_color;
+        public Brush proection_color;
+        public double axis_thickness;
+        public double label_thickness;
+        public double proection_thickness;
+        public double text_size;
+        public double point_size;
+        public int d_x;
+        public int d_y;
+        public bool proections;
         public CoordinatePlane(Canvas _canvas, string _axis_x_name, string _axis_y_name)
         {
-            points = new List<Point>();
             canvas = _canvas;
-            axis_x = new Axis(this, _axis_x_name, Position.Horizontal);
-            axis_y = new Axis(this, _axis_y_name, Position.Vertical);
+            NullPoint = new Vector2(canvas.Width * 0.1, canvas.Height * 0.9);
+            points = new List<Point>();
+            axis_x = new Axis(this, Position.Horizontal, new Vector2(0, 0), canvas.Width * 0.8, _axis_x_name);
+            axis_y = new Axis(this, Position.Vertical, new Vector2(0, 0), canvas.Height * 0.8, _axis_y_name);
+            points = new List<Point>();
 
-            first_multiplier_x = 1;
-            first_multiplier_y = 1;
-            label_size = 10.0;
-            point_size = 10.0;
-            point_color = Brushes.Red;
-            label_color = Brushes.Green;
             axis_color = Brushes.Black;
-            text_color = Brushes.Red;
+            point_color = Brushes.Red;
+            text_color = Brushes.DarkBlue;
+            label_color = Brushes.Green;
+            proection_color = Brushes.BlueViolet;
+            axis_thickness = 2.0;
+            label_thickness = 3.0;
+            proection_thickness = 1.0;
+            text_size = 12.0;
+            point_size = 6.0;
+            d_x = 1;
+            d_y = 1;
+            proections = false;
         }
-        public void AddPoint(double _x_value, double _y_value)
+        public virtual void ShowCoordinatePlane()
         {
-            Point new_point = new Point(this, _x_value, _y_value);
+            axis_x.Show();
+            axis_y.Show();
 
-            axis_x.AddPoint(new_point);
-            axis_y.AddPoint(new_point);
+            foreach(Point p in points)
+            {
+                CreatePoint(p);
+                if(proections)
+                {
+                    CreateProections(p);
+                }
+            }
+        }
+        public void AddPoint(double _value_x, double _value_y)
+        {
+            Point new_point = new Point(new Vector2(_value_x, _value_y));
+
+            axis_x.AddValue(new_point);
+            axis_y.AddValue(new_point);
 
             points.Add(new_point);
         }
-        public void Show()
+        public void CreateLine(Vector2 _p1, Vector2 _p2, double _stroke_thickness, Brush _color)
         {
-            double x_O = Math.Min(canvas.ActualWidth * 0.1, canvas.ActualHeight * 0.1);
-            double y_O = canvas.ActualHeight - x_O;
-            double x_axis_length = canvas.ActualWidth * 0.8;
-            double y_axis_length = canvas.ActualHeight * 0.8;
+            Line line = new Line();
 
-            canvas.Children.Clear();
+            line.X1 = NullPoint.x + _p1.x;
+            line.Y1 = NullPoint.y - _p1.y;
+            line.X2 = NullPoint.x + _p2.x;
+            line.Y2 = NullPoint.y - _p2.y;
+            line.Stroke = _color;
+            line.StrokeThickness = _stroke_thickness;
 
-            ShowPreview();
-
-            NullPoint = new Point(this, x_O, y_O);
-
-            axis_x.Show(x_axis_length);
-            axis_y.Show(y_axis_length);
-
-            foreach(Point point in points)
-            {
-                point.Show();
-            }
-
-            ShowAdditioanal();
+            canvas.Children.Add(line);
         }
-        public void CreateArrow(Position _position, Point _coords, Point _size, double _stroke_thickness, Brush _color)
+        public void CreatePoint(Point _p)
         {
-            Line arrow_half_1 = new Line();
-            Line arrow_half_2 = new Line();
+            Ellipse el = new Ellipse();
 
-            arrow_half_1.X1 = _coords.value_x;
-            arrow_half_1.Y1 = _coords.value_y;
+            el.Width = point_size;
+            el.Height = point_size;
+            el.Fill = point_color;
+            canvas.Children.Add(el);
 
-            arrow_half_2.X1 = _coords.value_x;
-            arrow_half_2.Y1 = _coords.value_y;
-
-            if(_position == Position.Horizontal)
+            Canvas.SetLeft(el, NullPoint.x - (point_size / 2) + _p.label_x.axis_value);
+            Canvas.SetTop(el, NullPoint.y - (point_size / 2) - _p.label_y.axis_value);
+        }
+        public void CreateArrow(Vector2 _p, Position _position, double _horisontal, double _vertical, double _stroke_thickness, Brush _color)
+        {
+            if (_position == Position.Horizontal)
             {
-                arrow_half_1.X2 = arrow_half_1.X1 + _size.value_x;
-                arrow_half_1.Y2 = arrow_half_1.Y1 + _size.value_y;
-
-                arrow_half_2.X2 = arrow_half_1.X1 + _size.value_x;
-                arrow_half_2.Y2 = arrow_half_1.Y1 - _size.value_y;
+                CreateLine(_p, new Vector2(_p.x - _horisontal, _p.y + _vertical), _stroke_thickness, _color);
+                CreateLine(_p, new Vector2(_p.x - _horisontal, _p.y - _vertical), _stroke_thickness, _color);
             }
             else
             {
-                arrow_half_1.X2 = arrow_half_1.X1 + _size.value_x;
-                arrow_half_1.Y2 = arrow_half_1.Y1 + _size.value_y;
+                CreateLine(_p, new Vector2(_p.x + _horisontal, _p.y - _vertical), _stroke_thickness, _color);
+                CreateLine(_p, new Vector2(_p.x - _horisontal, _p.y - _vertical), _stroke_thickness, _color);
+            }
+        }
+        public void CreateText(Vector2 _p, Position _position, string _text, double _font_size, Brush _color)
+        {
+            TextBlock text = new TextBlock()
+            {
+                Text = _text,
+                FontSize = _font_size,
+                Foreground = _color
+            };
 
-                arrow_half_2.X2 = arrow_half_1.X1 - _size.value_x;
-                arrow_half_2.Y2 = arrow_half_1.Y1 + _size.value_y;
+            canvas.Children.Add(text);
+
+            if(_position == Position.Horizontal)
+            {
+                Canvas.SetLeft(text, NullPoint.x + _p.x - (_font_size / 2));
+                Canvas.SetTop(text, NullPoint.y - _p.y + (_font_size / 2));
+            }
+            else
+            {
+                Canvas.SetLeft(text, NullPoint.x + _p.x - (_font_size * 4));
+                Canvas.SetTop(text, NullPoint.y - _p.y - (_font_size / 2));
+            }
+        }
+        public void CreateLabel(Label _label, double _value)
+        {
+            if (_label.ParentAxis.AxisPosition == Position.Horizontal)
+            {
+                CreateLine(new Vector2(_value, -(text_size / 2)), new Vector2(_value, (text_size / 2)), label_thickness, label_color);
+                CreateText(new Vector2(_value, 0), Position.Horizontal, _label.value.ToString("0.##"), text_size, text_color);
+            }
+            else
+            {
+                CreateLine(new Vector2(-(text_size / 2), _value), new Vector2((text_size / 2), _value), label_thickness, label_color);
+                CreateText(new Vector2(0, _value), Position.Vertical, _label.value.ToString("0.##"), text_size, text_color);
             }
 
-
-            arrow_half_1.StrokeThickness = _stroke_thickness;
-            arrow_half_1.Stroke = _color;
-
-            arrow_half_2.StrokeThickness = _stroke_thickness;
-            arrow_half_2.Stroke = _color;
-
-            canvas.Children.Add(arrow_half_1);
-            canvas.Children.Add(arrow_half_2);
+            _label.axis_value = _value;
         }
-        public virtual void ShowPreview()
+        public void CreateDashLine(Vector2 _p1, Vector2 _p2, double _stroke_thickness, Brush _color)
         {
+            Line line = new Line();
 
+            line.X1 = NullPoint.x + _p1.x;
+            line.Y1 = NullPoint.y - _p1.y;
+            line.X2 = NullPoint.x + _p2.x;
+            line.Y2 = NullPoint.y - _p2.y;
+            line.Stroke = _color;
+            line.StrokeThickness = _stroke_thickness;
+            line.StrokeDashArray = new DoubleCollection
+            {
+                4,
+                2
+            };
+
+            canvas.Children.Add(line);
         }
-        public virtual void ShowAdditioanal()
+        public void CreateProections(Point _p)
         {
-
+            CreateDashLine(new Vector2(_p.label_x.axis_value, _p.label_y.axis_value),
+                new Vector2(_p.label_x.axis_value, 0),
+                proection_thickness, proection_color);
+            CreateDashLine(new Vector2(_p.label_x.axis_value, _p.label_y.axis_value),
+                new Vector2(0, _p.label_y.axis_value),
+                proection_thickness, proection_color);
         }
     }
 }

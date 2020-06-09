@@ -21,49 +21,49 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-            <!--GRIDS ::: MainGrid ::: LISTBOXES-->
-            <ListBox x:Name="lbx_exercises" Grid.Column="0" SelectionChanged="lbx_exercises_SelectionChanged"/>
+            <!--GRIDS ::: MainGrid ::: SCROLLVIEWERS-->
+            <!--GRIDS ::: MainGrid ::: SCROLLVIEWERS ::: SETTINGS-->
+            <ScrollViewer Grid.Column="0">
+                <!--GRIDS ::: MainGrid ::: SCROLLVIEWERS ::: SETTINGS STACKPANELS-->
+                <StackPanel>
 
-            <!--GRIDS ::: MainGrid ::: GRIDS-->
-            <!--GRIDS ::: MainGrid ::: GRIDS ::: Ex1-->
-            <Grid x:Name="grd_ex1" Grid.Column="1" Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                
-                <!--GRIDS ::: MainGrid ::: GRIDS ::: Ex1 ::: GRIDS ::: Polygon-->
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="5*"/>
-                    </Grid.RowDefinitions>
+                    <!--GRIDS ::: MainGrid SCROLLVIEWERS ::: SETTINGS ::: STACKPANELS ::: TEXTBLOCKS-->
+                    <TextBlock Text="Файл вариационного ряда:"/>
 
-                    <!--GRIDS ::: MainGrid ::: GRIDS ::: Ex1 ::: GRIDS ::: Polygon ::: CANVAS-->
-                    <Canvas x:Name="cvs_polygon" Grid.Row="1" Margin="10"/>
+                    <!--GRIDS ::: MainGrid ::: SCROLLVIEWERS ::: SETTINGS STACKPANELS ::: GRIDS-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="9*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <!--GRIDS ::: MainGrid ::: GRIDS ::: Ex1 ::: GRIDS ::: Polygon ::: TEXTBLOCKS-->
-                    <TextBlock Grid.Row="0" Text="Полигон частот" FontSize="30" HorizontalAlignment="Center" VerticalAlignment ="Center"/>
-                </Grid>
-                
-                <!--GRIDS ::: MainGrid ::: GRIDS ::: Ex1 ::: GRIDS ::: Empirical-->
-                <Grid Grid.Column="1" Grid.Row="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="5*"/>
-                    </Grid.RowDefinitions>
+                        <!--GRIDS ::: MainGrid ::: SCROLLVIEWERS ::: SETTINGS DATAGRIDS ::: GRIDS ::: TEXTBOXES-->
+                        <TextBox x:Name="tbx_path" Text="row.row" Grid.Column="0"/>
 
-                    <!--GRIDS ::: MainGrid ::: GRIDS ::: Ex1 ::: GRIDS ::: Empirical ::: CANVAS-->
-                    <Canvas x:Name="cvs_empirical" Grid.Row="1" Margin="10"/>
+                        <!--GRIDS ::: MainGrid ::: SCROLLVIEWERS ::: SETTINGS DATAGRIDS ::: GRIDS ::: BUTTONS-->
+                        <Button Grid.Column="1" Click="btn_find_Click" Content="..."/>
+                    </Grid>
 
-                    <!--GRIDS ::: MainGrid ::: GRIDS ::: Ex1 ::: GRIDS ::: Empirical ::: TEXTBLOCKS-->
-                    <TextBlock Grid.Row="0" Text="Эмпирическая ф-ция распределения" FontSize="30" HorizontalAlignment="Center" VerticalAlignment ="Center"/>
-                </Grid>
-            </Grid>
+                    <!--GRIDS ::: MainGrid ::: SCROLLVIEWERS ::: SETTINGS STACKPANELS ::: BUTTONS-->
+                    <Button x:Name="btn_calculate" Content="Вычислить" Click="btn_calculate_Click"/>
+
+                    <!--GRIDS ::: MainGrid ::: SCROLLVIEWERS ::: SETTINGS STACKPANELS ::: EXPANDERS-->
+                    <Expander Header="Дополнительные настройки">
+                        <StackPanel>
+                            <CheckBox x:Name="chb_sf_row" Content="статистический ряд частот" IsChecked="True"/>
+                            <CheckBox x:Name="chb_sf_polygon" Content="полигон статистического ряда частот" IsChecked="True"/>
+                            <CheckBox x:Name="chb_srf_row" Content="статистический ряд относительных частот" IsChecked="True"/>
+                            <CheckBox x:Name="chb_srf_polygon" Content="полигон статистического ряда относительных частот" IsChecked="True"/>
+                            <CheckBox x:Name="chb_edf" Content="эмпирическая функция распределения" IsChecked="True"/>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </ScrollViewer>
+            
+            <!--GRIDS ::: MainGrid ::: SCROLLVIEWERS ::: Modules-->
+            <ScrollViewer Grid.Column="1">
+                <StackPanel x:Name="spl_modules"/>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Window>

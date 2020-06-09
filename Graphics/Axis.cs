@@ -1,125 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
-using System.Windows.Shapes;
-using System.Windows.Media;
+using System.Linq;
 
-namespace Graphics
+namespace shabanova_kalagin_korenev_polyakov_L5.Graphics
 {
     class Axis
     {
+        private Vector2 null_point;
         private string name;
-        private double length;
-        public List<Label> labels;
-        public Position position;
-        public Point NullPoint { get; private set; }
+        private List<Label> labels;
         public CoordinatePlane ParentPlane { get; private set; }
-        public double SegmentSize { get; private set; }
-        public double Length
+        public Position AxisPosition { get; private set; }
+        public double Length { get; private set; }
+        public int LabelsCount
         {
             get
             {
-                return length;
-            }
-            private set
-            {
-                length = value;
-                SegmentSize = (length * 0.9) / labels.Count;
+                return labels.Count;
             }
         }
-        public Axis(CoordinatePlane _parent_plane, string _name, Position _position)
+        public Axis(CoordinatePlane _parent_plane, Position _position, Vector2 _null_point, double _length, string _name)
         {
             ParentPlane = _parent_plane;
+            AxisPosition = _position;
+            null_point = _null_point;
+            Length = _length;
             name = _name;
-            position = _position;
-
             labels = new List<Label>();
         }
-        public void AddPoint(Point _point)
+        public void AddValue(Point _p)
         {
+            double searching_value;
+            List<Label> search_list;
             Label temp_label;
 
-            foreach (Label label in labels)
+            if(AxisPosition == Position.Horizontal)
             {
-                if(position == Position.Horizontal && label.Value == _point.value_x)
-                {
-                    _point.label_x = label;
-                }
-                else if (position == Position.Vertical && label.Value == _point.value_y)
-                {
-                    _point.label_y = label;
-                }
+                searching_value = _p.value.x;
+            }
+            else
+            {
+                searching_value = _p.value.y;
             }
 
-            if (position == Position.Horizontal && _point.label_x == null)
+            search_list = (from label in labels
+                           where label.value == searching_value
+                          select label).ToList();
+
+            if(search_list.Count == 0)
             {
-                temp_label = new Label(this, _point.value_x);
+                temp_label = new Label(this, searching_value);
                 labels.Add(temp_label);
-                _point.label_x = temp_label;
             }
-            else if (position == Position.Vertical && _point.label_y == null)
+            else
             {
-                temp_label = new Label(this, _point.value_y);
-                labels.Add(temp_label);
-                _point.label_y = temp_label;
+                temp_label = search_list[0];
+            }
+
+            if(AxisPosition == Position.Horizontal)
+            {
+                _p.label_x = temp_label;
+            }
+            else
+            {
+                _p.label_y = temp_label;
             }
         }
-        public void Show(double _lenght)
+        public void Show()
         {
-            Line line = new Line();
-            int label_counter;
-            TextBlock name_label = new TextBlock();
+            int c1;
+            Vector2 end_point;
+            double horizontal, vertical;
+            int d;
 
-            name_label.Text = name;
-            name_label.Foreground = ParentPlane.text_color;
-            name_label.FontSize = ParentPlane.label_size + 2;
-            ParentPlane.canvas.Children.Add(name_label);
-
-            Length = _lenght;
-            NullPoint = ParentPlane.NullPoint;
-
-            if(position == Position.Horizontal)
+            if (AxisPosition == Position.Horizontal)
             {
-                line.X1 = NullPoint.value_x;
-                line.Y1 = NullPoint.value_y;
-                line.X2 = Length + NullPoint.value_x;
-                line.Y2 = NullPoint.value_y;
-
-                ParentPlane.CreateArrow(position, new Point(line.X2, line.Y2), new Point(-10.0, -5.0), 2.0, ParentPlane.axis_color);
-
-                Canvas.SetLeft(name_label, line.X2);
-                Canvas.SetTop(name_label, line.Y2 + ParentPlane.label_size);
+                end_point = new Vector2(null_point.x + Length, null_point.y);
+                horizontal = 10;
+                vertical = 5;
+                d = ParentPlane.d_x;
             }
             else
             {
-                line.X1 = NullPoint.value_x;
-                line.Y1 = NullPoint.value_y;
-                line.X2 = NullPoint.value_x;
-                line.Y2 = NullPoint.value_y - Length;
-
-                ParentPlane.CreateArrow(position, new Point(line.X2, line.Y2), new Point(5.0, 10.0), 2.0, ParentPlane.axis_color);
-
-                Canvas.SetLeft(name_label, line.X2 - (ParentPlane.label_size * 3));
-                Canvas.SetTop(name_label, line.Y2);
+                end_point = new Vector2(null_point.x, null_point.y + Length);
+                horizontal = 5;
+                vertical = 10;
+                d = ParentPlane.d_y;
             }
 
-            line.StrokeThickness = 2.0;
-            line.Stroke = ParentPlane.axis_color;
-
-            ParentPlane.canvas.Children.Add(line);
+            ParentPlane.CreateLine(null_point, end_point, ParentPlane.axis_thickness, ParentPlane.axis_color);
+            ParentPlane.CreateArrow(end_point, AxisPosition, horizontal, vertical, ParentPlane.axis_thickness, ParentPlane.axis_color);
+            ParentPlane.CreateText(end_point, AxisPosition, name, ParentPlane.text_size + 2, ParentPlane.text_color);
 
             labels.Sort();
-            if(position == Position.Horizontal)
+            for(c1 = 0; c1 < labels.Count; c1++)
             {
-                label_counter = ParentPlane.first_multiplier_x;
-            }
-            else
-            {
-                label_counter = ParentPlane.first_multiplier_y;
-            }
-            foreach(Label label in labels)
-            {
-                label.Show(label_counter++);
+                ParentPlane.CreateLabel(labels[c1], ((Length * 0.9) / labels.Count) * (c1 + d));
             }
         }
     }
