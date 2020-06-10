@@ -5,7 +5,7 @@ using shabanova_kalagin_korenev_polyakov_L5.Graphics;
 
 namespace shabanova_kalagin_korenev_polyakov_L5
 {
-    class ModuleSRFP : Module // Относительный ряд
+    class ModuleSRFP : Module // Относительный полигон
     {
         public ModuleSRFP(StackPanel _panel, CheckBox _activity) : base(_panel, _activity)
         {

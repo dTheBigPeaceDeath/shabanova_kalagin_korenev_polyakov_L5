@@ -34,7 +34,12 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 chb_sf_row,
                 chb_sf_polygon,
                 chb_srf_row,
-                chb_srf_polygon
+                chb_srf_polygon,
+                chb_edf,
+                chb_X,
+                chb_D,
+                chb_O,
+                chb_S,
             };
 
             modules = new List<Module>()
@@ -48,6 +53,11 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 new ModuleD(spl_modules, chb_D),
                 new ModuleO(spl_modules, chb_O),
                 new ModuleS(spl_modules, chb_S),
+                new ModuleISFR(spl_modules, chb_i_sf_row),
+                new ModuleISFG(spl_modules, chb_i_sf_gist),
+                new ModuleISRFR(spl_modules, chb_i_srf_row),
+                new ModuleISRFG(spl_modules, chb_i_srf_gist),
+                new ModuleIEDF(spl_modules, chb_i_edf),
             };
 
             tbx_path.TextChanged += tbx_path_TextChanged;

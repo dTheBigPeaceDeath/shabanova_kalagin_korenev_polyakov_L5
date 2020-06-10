@@ -15,7 +15,7 @@ namespace shabanova_kalagin_korenev_polyakov_L5
         {
             TextBlock tbx_temp = new TextBlock();
             Grid sfr_table = new Grid();
-            tbx_temp.Text = Convert.ToString(Row.X);
+            tbx_temp.Text = Row.X.ToString("0.##");
             tbx_temp.HorizontalAlignment = HorizontalAlignment.Left;
             tbx_temp.VerticalAlignment = VerticalAlignment.Center;
             sfr_table.Children.Add(tbx_temp);
