@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace shabanova_kalagin_korenev_polyakov_L5
 {
@@ -15,19 +16,21 @@ namespace shabanova_kalagin_korenev_polyakov_L5
         public static double D;
         public static double O;
         public static double S;
-        public static int i_count;
         public static Dictionary<Tuple<double, double>, int> i_statistical_row;
         public static Dictionary<Tuple<double, double>, double> i_statistical_relative_row;
+        public static Dictionary<double, double> i_efunction;
+        public static TextBox tbx_i_count;
         public static void LoadRow(string _path)
         {
             double first_value = 0.0;
+            int i_count;
             List<List<string>> data = LoadTextData(_path);
 
             row = new List<double>();
 
-            foreach(List<string> str_list in data)
+            foreach (List<string> str_list in data)
             {
-                foreach(string str in str_list)
+                foreach (string str in str_list)
                 {
                     char point = System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator[0];
                     string str2 = str.Replace(',', point);
@@ -39,9 +42,9 @@ namespace shabanova_kalagin_korenev_polyakov_L5
 
             statistical_row = new Dictionary<double, int>();
 
-            foreach(double d in row)
+            foreach (double d in row)
             {
-                if(statistical_row.ContainsKey(d))
+                if (statistical_row.ContainsKey(d))
                 {
                     statistical_row[d]++;
                 }
@@ -92,10 +95,17 @@ namespace shabanova_kalagin_korenev_polyakov_L5
             S /= Row.statistical_row.Count - 1;
 
             /* ИНТЕРВАЛЫ */
+            if (tbx_i_count.Text == "" || tbx_i_count.Text == "0")
+            {
+                i_count = 1;
+            }
+            else
+            {
+                i_count = Convert.ToInt32(tbx_i_count.Text);
+            }
             //Ряд
             i_statistical_row = new Dictionary<Tuple<double, double>, int>();
             List<double> temp_list = statistical_row.Keys.ToList();
-            i_count = 5;
             double step = (temp_list[temp_list.Count - 1] - temp_list[0]) / i_count;
             int value;
             Tuple<double, double> di2 = new Tuple<double, double>(temp_list[0], temp_list[0] + step);
@@ -125,6 +135,14 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 value2 /= row.Count;
                 i_statistical_relative_row.Add(di2, value2);
                 di2 = new Tuple<double, double>(di2.Item2, di2.Item2 + step);
+            }
+            //Эмпирическая функция
+            i_efunction = new Dictionary<double, double>();
+            first_value = 0.0;
+            foreach(KeyValuePair<Tuple<double, double>, double> di in Row.i_statistical_relative_row)
+            {
+                i_efunction.Add(di.Key.Item1, first_value);
+                first_value += di.Value;
             }
 
         }

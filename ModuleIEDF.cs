@@ -21,17 +21,15 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 Height = 500
             };
             CPEmpirical empirical = new CPEmpirical(canvas, "wi", "xi");
-
+            empirical.proections = true;
             module_grid.Children.Add(canvas);
             Grid.SetRow(canvas, 1);
 
-            foreach (KeyValuePair<Tuple<double, double>, double> di in Row.i_statistical_relative_row)
-            {
-                empirical.AddPoint(di.Key.Item1, di.Value);
-                empirical.AddPoint(di.Key.Item2, di.Value);
+            foreach (KeyValuePair<double, double> di in Row.i_efunction)
+            {   
+                empirical.AddPoint(di.Key, di.Value);
             }
 
-            empirical.d_y = 1;
             empirical.ShowCoordinatePlane();
         }
     }

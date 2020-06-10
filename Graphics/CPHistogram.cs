@@ -13,6 +13,7 @@ namespace shabanova_kalagin_korenev_polyakov_L5.Graphics
         {
             pillar_color = Brushes.Chocolate;
             pillar_thickness = 4.0;
+            d_y = 0;
         }
         public override void ShowCoordinatePlane()
         {

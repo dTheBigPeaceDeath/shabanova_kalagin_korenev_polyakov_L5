@@ -93,6 +93,15 @@ namespace shabanova_kalagin_korenev_polyakov_L5.Graphics
             ParentPlane.CreateText(end_point, AxisPosition, name, ParentPlane.text_size + 2, ParentPlane.text_color);
 
             labels.Sort();
+            if (labels[0].value == 0)
+            {
+                d = 0;
+            }
+            else 
+            {
+                d = 1;
+            }
+
             for(c1 = 0; c1 < labels.Count; c1++)
             {
                 ParentPlane.CreateLabel(labels[c1], ((Length * 0.9) / labels.Count) * (c1 + d));

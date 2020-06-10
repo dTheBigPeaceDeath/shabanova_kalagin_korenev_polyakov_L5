@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace shabanova_kalagin_korenev_polyakov_L5
 {
@@ -27,6 +28,7 @@ namespace shabanova_kalagin_korenev_polyakov_L5
         public MainWindow()
         {
             InitializeComponent();
+            Row.tbx_i_count = tbx_i_count;
 
             variable_enabled = new List<UIElement>()
             {
@@ -40,6 +42,12 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 chb_D,
                 chb_O,
                 chb_S,
+                chb_i_sf_row,
+                chb_i_sf_gist,
+                chb_i_srf_row,
+                chb_i_srf_gist,
+                chb_i_edf,
+                tbx_i_count
             };
 
             modules = new List<Module>()
@@ -57,7 +65,7 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 new ModuleISFH(spl_modules, chb_i_sf_gist),
                 new ModuleISRFR(spl_modules, chb_i_srf_row),
                 new ModuleISRFH(spl_modules, chb_i_srf_gist),
-                new ModuleIEDF(spl_modules, chb_i_edf),
+                new ModuleIEDF(spl_modules, chb_i_edf)
             };
 
             tbx_path.TextChanged += tbx_path_TextChanged;
@@ -104,6 +112,19 @@ namespace shabanova_kalagin_korenev_polyakov_L5
             foreach(Module module in modules)
             {
                 module.Run();
+            }
+        }
+
+        private void tbx_i_count_PreviewTextInput(object sender, TextCompositionEventArgs _e)
+        {
+            _e.Handled = !(new Regex(@"\d$")).IsMatch((sender as TextBox).Text + _e.Text);
+        }
+
+        private void tbx_i_count_PreviewKeyDown(object sender, KeyEventArgs _e)
+        {
+            if (_e.Key == Key.Space)
+            {
+                _e.Handled = true;
             }
         }
     }

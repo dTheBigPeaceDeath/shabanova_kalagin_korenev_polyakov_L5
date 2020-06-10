@@ -65,7 +65,7 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="кол-во интервалов"/>
-                                <TextBox x:Name="tbx_i_count"  Grid.Column="1" Text="5"/>
+                                <TextBox x:Name="tbx_i_count" Grid.Column="1" Text="5" PreviewTextInput="tbx_i_count_PreviewTextInput" PreviewKeyDown="tbx_i_count_PreviewKeyDown"/>
                             </Grid>
                             <CheckBox x:Name="chb_i_sf_row" Content="интервальный статистический ряд частот" IsChecked="True"/>
                             <CheckBox x:Name="chb_i_sf_gist" Content="гистограмма статистического ряда частот" IsChecked="True"/>
