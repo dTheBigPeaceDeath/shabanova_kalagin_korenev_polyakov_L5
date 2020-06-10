@@ -22,7 +22,9 @@ namespace shabanova_kalagin_korenev_polyakov_L5
             {
                 foreach(string str in str_list)
                 {
-                    row.Add(Convert.ToDouble(str));
+                    char point = System.Globalization.NumberFormatInfo.CurrentInfo.NumberDecimalSeparator[0];
+                    string str2 = str.Replace(',', point);
+                    row.Add(Convert.ToDouble(str2));
                 }
             }
 
