@@ -55,6 +55,10 @@
                             <CheckBox x:Name="chb_srf_row" Content="статистический ряд относительных частот" IsChecked="True"/>
                             <CheckBox x:Name="chb_srf_polygon" Content="полигон статистического ряда относительных частот" IsChecked="True"/>
                             <CheckBox x:Name="chb_edf" Content="эмпирическая функция распределения" IsChecked="True"/>
+                            <CheckBox x:Name="chb_X" Content="Значение X" IsChecked="True"/>
+                            <CheckBox x:Name="chb_D" Content="Значение D" IsChecked="True"/>
+                            <CheckBox x:Name="chb_O" Content="Значение O" IsChecked="True"/>
+                            <CheckBox x:Name="chb_S" Content="Значение S" IsChecked="True"/>
                         </StackPanel>
                     </Expander>
                 </StackPanel>

@@ -55,7 +55,7 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 });
 
                 tbx_temp = new TextBlock();
-                tbx_temp.Text = dd.Key.ToString();
+                tbx_temp.Text = dd.Key.ToString("0.##");
                 tbx_temp.HorizontalAlignment = HorizontalAlignment.Center;
                 tbx_temp.VerticalAlignment = VerticalAlignment.Center;
                 sfr_table.Children.Add(tbx_temp);
@@ -63,7 +63,7 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 Grid.SetRow(tbx_temp, 0);
 
                 tbx_temp = new TextBlock();
-                tbx_temp.Text = dd.Value.ToString();
+                tbx_temp.Text = dd.Value.ToString("0.##");
                 tbx_temp.HorizontalAlignment = HorizontalAlignment.Center;
                 tbx_temp.VerticalAlignment = VerticalAlignment.Center;
                 sfr_table.Children.Add(tbx_temp);

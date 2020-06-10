@@ -6,7 +6,7 @@ using shabanova_kalagin_korenev_polyakov_L5.Graphics;
 
 namespace shabanova_kalagin_korenev_polyakov_L5
 {
-    class ModuleSFP : Module
+    class ModuleSFP : Module // ...Полигон
     {
         public ModuleSFP(StackPanel _panel, CheckBox _activity) : base(_panel, _activity)
         {

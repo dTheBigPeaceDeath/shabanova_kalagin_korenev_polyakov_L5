@@ -43,7 +43,11 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 new ModuleSFP(spl_modules, chb_sf_polygon),
                 new ModuleSRFR(spl_modules, chb_srf_row),
                 new ModuleSRFP(spl_modules, chb_srf_polygon),
-                new ModuleEDF(spl_modules, chb_edf)
+                new ModuleEDF(spl_modules, chb_edf),
+                new ModuleX(spl_modules, chb_X),
+                new ModuleD(spl_modules, chb_D),
+                new ModuleO(spl_modules, chb_O),
+                new ModuleS(spl_modules, chb_S),
             };
 
             tbx_path.TextChanged += tbx_path_TextChanged;

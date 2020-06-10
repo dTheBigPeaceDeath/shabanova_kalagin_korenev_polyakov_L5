@@ -11,6 +11,10 @@ namespace shabanova_kalagin_korenev_polyakov_L5
         public static Dictionary<double, int> statistical_row;
         public static Dictionary<double, double> statistical_relative_row;
         public static Dictionary<double, double> efunction;
+        public static double X;
+        public static double D;
+        public static double O;
+        public static double S;
         public static void LoadRow(string _path)
         {
             double first_value = 0.0;
@@ -56,6 +60,26 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 efunction.Add(dd.Key, first_value);
                 first_value += dd.Value;
             }
+
+            //X
+            foreach (KeyValuePair<double, int> di in Row.statistical_row)
+            {
+                X += di.Key * di.Value;
+            }
+            X /= Row.statistical_row.Count;
+
+            //D
+            foreach (KeyValuePair<double, int> di in Row.statistical_row)
+            {
+                D += di.Value * Math.Pow(di.Key - X, 2);
+            }
+            D /= Row.statistical_row.Count;
+
+            //O
+            O = Math.Sqrt(D);
+
+            //S доделать
+            S = 0;
         }
         public static List<List<string>> LoadTextData(string _path)
         {

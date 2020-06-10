@@ -6,12 +6,12 @@ using shabanova_kalagin_korenev_polyakov_L5.Graphics;
 
 namespace shabanova_kalagin_korenev_polyakov_L5
 {
-    class ModuleEDF : Module
+    class ModuleEDF : Module // Импирическая функция распределения
     {
         public ModuleEDF(StackPanel _panel, CheckBox _activity) : base(_panel, _activity)
         {
 
-        }
+        }   
         public override void Calculate()
         {
             Canvas canvas = new Canvas()

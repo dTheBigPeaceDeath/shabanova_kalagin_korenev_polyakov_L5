@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace shabanova_kalagin_korenev_polyakov_L5
 {
-    class ModuleSFR : Module
+    class ModuleSFR : Module // ...Ряд
     {
         public ModuleSFR(StackPanel _panel, CheckBox _activity) : base(_panel, _activity)
         {
@@ -55,7 +55,7 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 });
 
                 tbx_temp = new TextBlock();
-                tbx_temp.Text = di.Key.ToString();
+                tbx_temp.Text = di.Key.ToString("0.##");
                 tbx_temp.HorizontalAlignment = HorizontalAlignment.Center;
                 tbx_temp.VerticalAlignment = VerticalAlignment.Center;
                 sfr_table.Children.Add(tbx_temp);
