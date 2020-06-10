@@ -54,9 +54,9 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 new ModuleO(spl_modules, chb_O),
                 new ModuleS(spl_modules, chb_S),
                 new ModuleISFR(spl_modules, chb_i_sf_row),
-                new ModuleISFG(spl_modules, chb_i_sf_gist),
+                new ModuleISFH(spl_modules, chb_i_sf_gist),
                 new ModuleISRFR(spl_modules, chb_i_srf_row),
-                new ModuleISRFG(spl_modules, chb_i_srf_gist),
+                new ModuleISRFH(spl_modules, chb_i_srf_gist),
                 new ModuleIEDF(spl_modules, chb_i_edf),
             };
 

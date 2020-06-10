@@ -59,7 +59,6 @@
                             <CheckBox x:Name="chb_D" Content="значение D" IsChecked="True"/>
                             <CheckBox x:Name="chb_O" Content="значение O" IsChecked="True"/>
                             <CheckBox x:Name="chb_S" Content="значение S" IsChecked="True"/>
-                            <CheckBox x:Name="chb_intervals" Content="интервалы" IsChecked="True"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>

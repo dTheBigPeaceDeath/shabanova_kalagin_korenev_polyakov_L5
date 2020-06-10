@@ -7,9 +7,9 @@ using shabanova_kalagin_korenev_polyakov_L5.Graphics;
 
 namespace shabanova_kalagin_korenev_polyakov_L5
 {
-    class ModuleIEDF : Module
+    class ModuleISRFH : Module
     {
-        public ModuleIEDF(StackPanel _panel, CheckBox _activity) : base(_panel, _activity)
+        public ModuleISRFH(StackPanel _panel, CheckBox _activity) : base(_panel, _activity)
         {
 
         }
@@ -20,19 +20,18 @@ namespace shabanova_kalagin_korenev_polyakov_L5
                 Width = 1000,
                 Height = 500
             };
-            CPEmpirical empirical = new CPEmpirical(canvas, "wi", "xi");
+            CPHistogram histogram = new CPHistogram(canvas, "ni", "xi");
 
             module_grid.Children.Add(canvas);
             Grid.SetRow(canvas, 1);
 
             foreach (KeyValuePair<Tuple<double, double>, double> di in Row.i_statistical_relative_row)
             {
-                empirical.AddPoint(di.Key.Item1, di.Value);
-                empirical.AddPoint(di.Key.Item2, di.Value);
+                histogram.AddPoint(di.Key.Item1, di.Value);
+                histogram.AddPoint(di.Key.Item2, di.Value);
             }
 
-            empirical.d_y = 1;
-            empirical.ShowCoordinatePlane();
+            histogram.ShowCoordinatePlane();
         }
     }
 }
