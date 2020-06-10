@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\GitHub\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj": {}
+    "C:\\Users\\Igor\\OneDrive\\Documents\\Projects\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj": {}
   },
   "projects": {
-    "E:\\GitHub\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj": {
+    "C:\\Users\\Igor\\OneDrive\\Documents\\Projects\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\GitHub\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj",
+        "projectUniqueName": "C:\\Users\\Igor\\OneDrive\\Documents\\Projects\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj",
         "projectName": "shabanova_kalagin_korenev_polyakov_L5",
-        "projectPath": "E:\\GitHub\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj",
-        "packagesPath": "C:\\Users\\peace\\.nuget\\packages\\",
-        "outputPath": "E:\\GitHub\\shabanova_kalagin_korenev_polyakov_L5\\obj\\",
+        "projectPath": "C:\\Users\\Igor\\OneDrive\\Documents\\Projects\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj",
+        "packagesPath": "C:\\Users\\Igor\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Igor\\OneDrive\\Documents\\Projects\\shabanova_kalagin_korenev_polyakov_L5\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\peace\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Igor\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -47,12 +47,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -61,7 +55,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

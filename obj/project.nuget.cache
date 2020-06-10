@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "s7U4lb0YDaKRpg04qlX4uaOq3LQDMAAmdsRYHfD25ZKZq7EbLKkUQcbbzVQkpxUPm1AHHDKy465/GoWzZjsV+g==",
+  "dgSpecHash": "F88ab4Re9LL0wIqkX3Vx8Q+vL7c/Yc8u7dkZmgw2bd77ZNqW/thSWv9MkTlpkuj0EQRMnhNfdSm5ngh4eiScLQ==",
   "success": true,
-  "projectFilePath": "E:\\GitHub\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\peace\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\Igor\\OneDrive\\Documents\\Projects\\shabanova_kalagin_korenev_polyakov_L5\\shabanova_kalagin_korenev_polyakov_L5.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
